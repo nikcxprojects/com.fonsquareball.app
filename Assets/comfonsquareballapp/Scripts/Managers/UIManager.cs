@@ -13,23 +13,20 @@ public class UIManager : MonoBehaviour
 
     private GameObject _gameRef;
 
-    [SerializeField] GameObject menuLandscape;
-
     [Space(10)]
     [SerializeField] GameObject menu;
     [SerializeField] GameObject settings;
-    [SerializeField] GameObject records;
+    [SerializeField] GameObject avatar;
     [SerializeField] GameObject game;
-    [SerializeField] GameObject pause;
     [SerializeField] GameObject result;
 
     private void Awake()
     {
-        Platform.OnPlatformCollided += () =>
-        {
-            score++;
-            scoreText.text = $"{score}";
-        };
+        //Platform.OnPlatformCollided += () =>
+        //{
+        //    score++;
+        //    scoreText.text = $"{score}";
+        //};
     }
 
 
@@ -42,9 +39,6 @@ public class UIManager : MonoBehaviour
     {
         score = 0;
         scoreText.text = $"{score}";
-
-        Time.timeScale = 1;
-        menuLandscape.SetActive(false);
 
         var _parent = GameObject.Find("Environment").transform;
         var _prefab = Resources.Load<GameObject>("level");
@@ -63,16 +57,10 @@ public class UIManager : MonoBehaviour
         settings.SetActive(true);
     }
 
-    public void OpenRecords()
+    public void OpenAvatar()
     {
         menu.SetActive(false);
-        records.SetActive(true);
-    }
-
-    public void OpenPause(bool open)
-    {
-        Time.timeScale = open ? 0 : 1;
-        pause.SetActive(open);
+        avatar.SetActive(true);
     }
 
     public void OpenMenu()
@@ -82,23 +70,17 @@ public class UIManager : MonoBehaviour
             Destroy(_gameRef);
         }
 
-        menuLandscape.SetActive(true);
 
         game.SetActive(false);
         settings.SetActive(false);
-        records.SetActive(false);
-        pause.SetActive(false);
+        avatar.SetActive(false);
         result.SetActive(false);
 
         menu.SetActive(true);
-
-        CameraFollower.target = null;
-        Camera.main.transform.position = new Vector3(0, 0, -10);
     }
 
     public void GameOver()
     {
-        Time.timeScale = 0;
         result.SetActive(true);
     }
 }
