@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour
         get => FindObjectOfType<UIManager>(); 
     }
 
+    private const float scoreRate = 0.65f;
+    private float nextTime;
+
     int score = 0;
     [SerializeField] Text scoreText;
 
@@ -24,15 +27,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject game;
     [SerializeField] GameObject result;
 
-    private void Awake()
-    {
-        //Platform.OnPlatformCollided += () =>
-        //{
-        //    score++;
-        //    scoreText.text = $"{score}";
-        //};
-    }
-
 
     private void Start()
     {
@@ -40,9 +34,26 @@ public class UIManager : MonoBehaviour
         SetBall(BallManager.BallId);
     }
 
+    private void Update()
+    {
+        if(result.activeSelf)
+        {
+            return;
+        }
+
+        if(Time.time > nextTime)
+        {
+            score += 1;
+            nextTime = Time.time + scoreRate;
+            scoreText.text = $"{score}";
+        }
+    }
+
     public void StartGame()
     {
         score = 0;
+        nextTime = 0.0f;
+
         scoreText.text = $"{score}";
 
         var _parent = GameObject.Find("Environment").transform;
