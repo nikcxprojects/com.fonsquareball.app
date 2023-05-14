@@ -11,6 +11,10 @@ public class UIManager : MonoBehaviour
     int score = 0;
     [SerializeField] Text scoreText;
 
+    [Space(10)]
+    [SerializeField] Transform circleTarget;
+    [SerializeField] Transform grid;
+
     private GameObject _gameRef;
 
     [Space(10)]
@@ -33,6 +37,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         OpenMenu();
+        SetBall(BallManager.BallId);
     }
 
     public void StartGame()
@@ -49,6 +54,12 @@ public class UIManager : MonoBehaviour
 
         game.SetActive(true);
         result.SetActive(false);
+    }
+
+    public void SetBall(int id)
+    {
+        BallManager.BallId = id;
+        circleTarget.position = grid.GetChild(id - 1).position;
     }
 
     public void OpenSettings()

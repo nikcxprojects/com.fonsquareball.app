@@ -7,11 +7,18 @@ public class Ball : MonoBehaviour
 
     private Rigidbody2D Rigidbody { get; set; }
     private AudioSource Source { get; set; }
+    private SpriteRenderer Render { get; set; }
 
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
         Source = GetComponent<AudioSource>();
+        Render = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        Render.sprite = Resources.Load<Sprite>($"balls/{BallManager.BallId}");
     }
 
     private void Update()
