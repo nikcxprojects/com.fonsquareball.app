@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 
     int score = 0;
     [SerializeField] Text scoreText;
+    [SerializeField] Text finalScore;
 
     [Space(10)]
     [SerializeField] Transform circleTarget;
@@ -45,7 +46,9 @@ public class UIManager : MonoBehaviour
         {
             score += 1;
             nextTime = Time.time + scoreRate;
+
             scoreText.text = $"{score}";
+            finalScore.text = scoreText.text;
         }
     }
 
@@ -87,11 +90,10 @@ public class UIManager : MonoBehaviour
 
     public void OpenMenu()
     {
-        if(_gameRef)
+        if (_gameRef)
         {
             Destroy(_gameRef);
         }
-
 
         game.SetActive(false);
         settings.SetActive(false);
@@ -103,6 +105,11 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (_gameRef)
+        {
+            Destroy(_gameRef);
+        }
+
         result.SetActive(true);
     }
 }

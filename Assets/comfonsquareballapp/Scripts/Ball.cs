@@ -66,5 +66,7 @@ public class Ball : MonoBehaviour
 
             Source.Play();
         }
+
+        UIManager.Instance.GameOver();
     }
 }
